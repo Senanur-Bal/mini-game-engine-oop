@@ -1,157 +1,130 @@
-## Factory Method Pattern (Phase 1)
+# 🏗 Design Patterns Documentation
 
-### Where used
-GameObject creation is handled by GameObjectFactory.
+## 🚀 Phase 1: Factory Method Pattern
 
-### Why used
-To remove if-else logic and centralize object creation.
+### 🔍 Where used (Nerede Kullanıldı?)
+`GameObject` üretimi, `Main` sınıfı içerisinden tamamen temizlendi ve bu sorumluluk `GameObjectFactory` sınıfına devredildi. İstemci (`Main`), artık somut sınıflar (`Player`, `Enemy`, `Item`) yerine sadece fabrika arayüzü ile etkileşime geçiyor.
 
-<<<<<<< Updated upstream
-### Benefit
-- Cleaner Main class
-- Easier to extend new object types
-- Better OOP structure
-=======
 ### ❓ Why used (Neden Kullanıldı?)
-*   **Tight Coupling'i (Sıkı Bağlılık) Önlemek:** `Main` sınıfının tüm alt sınıfları tanıması bağımlılığı artırıyordu. Fabrika kullanarak bu bağları kopardık.
-*   **Karmaşık Mantığı Soyutlamak:** Nesne oluşturma sırasındaki `switch-case` yapısını tek bir merkezde toplayarak kod tekrarını önledik.
-*   **Open/Closed Principle:** Sisteme yeni bir nesne türü (örn: `NPC`) eklendiğinde mevcut `Main` koduna dokunmadan sadece fabrikayı genişletmeyi mümkün kıldık.
+*   **Tight Coupling'i (Sıkı Bağlılık) Önlemek:** `Main` sınıfının tüm alt sınıfları tanıması bağımlılığı artırıyordu. Fabrika kullanarak bu bağları kopardık.
+*   **Karmaşık Mantığı Soyutlamak:** Nesne oluşturma sırasındaki `switch-case` yapısını tek bir merkezde toplayarak kod tekrarını önledik.
+*   **Open/Closed Principle:** Sisteme yeni bir nesne türü (örn: `NPC`) eklendiğinde mevcut `Main` koduna dokunmadan sadece fabrikayı genişletmeyi mümkün kıldık.
 
 ### 🏆 Benefit (Ne Kazandınız?)
-*   **Clean Code:** `Main` sınıfı sadece oyunun akışına odaklandı, nesne yaratma yükünden kurtuldu.
-*   **Maintainability:** Bir nesnenin oluşturulma şekli değişirse (örn: yeni bir constructor parametresi gelirse), sadece `GameObjectFactory` sınıfını güncellemek yeterli olacak.
-*   **Polimorfizm:** Tüm nesneler `GameObject` tipiyle yönetildiği için kod daha esnek ve tip güvenli hale geldi.
+*   **Clean Code:** `Main` sınıfı sadece oyunun akışına odaklandı, nesne yaratma yükünden kurtuldu.
+*   **Maintainability:** Bir nesnenin oluşturulma şekli değişirse, sadece `GameObjectFactory` sınıfını güncellemek yeterli olacak.
+*   **Polimorfizm:** Tüm nesneler `GameObject` tipiyle yönetildiği için kod daha esnek ve tip güvenli hale geldi.
 
 ---
 
-## 📊 UML Class Diagrams
+## 📊 UML Class Diagrams (Phase 1)
 
 ### 🔴 Phase 0: Before (Tight Coupling - Hatalı Tasarım)
-Bu aşamada tasarım sorunluydu; `Main` sınıfı her somut sınıfa doğrudan bağlıydı ve kodun genişletilmesi zordu.
-
 ```text
-       +-----------------------+
-       |         Main          |
-       +-----------------------+
-       | + main()              | 
-       +-----------------------+
-           |          |          |
-           | (Direct) | (Direct) | (Direct)
-           v          v          v
-    +--------+   +-------+   +------+
-    | Player |   | Enemy |   | Item |
-    +--------+   +-------+   +------+
+       +-----------------------+
+       |         Main          |
+       +-----------------------+
+       | + main()              | 
+       +-----------------------+
+           |          |          |
+           | (Direct) | (Direct) | (Direct)
+           v          v          v
+    +--------+   +-------+   +------+
+    | Player |   | Enemy |   | Item |
+    +--------+   +-------+   +------+
 ```
-
 🟢 Phase 1: After (Factory Method - İyileştirilmiş Tasarım)
-Fabrika katmanı sayesinde bağımlılıklar soyutlandı. Main artık sadece GameObject ve GameObjectFactory sınıflarını tanıyor.
-
 ```text
 +-----------------------+
-       |      GameObject       |  <---- (Abstract Class)
-       +-----------------------+
-       | # x: int              |
-       | # y: int              |
-       +-----------------------+
-       | + update(): void      |
-       +-----------------------+
-                   ^
-                   | (Inheritance)
-      +------------+------------+
-      |            |            |
-+----------+  +---------+  +---------+
-|  Player  |  |  Enemy  |  |  Item   |
-+----------+  +---------+  +---------+
-| +update()|  | +update()|  | +update()|
-+----------+  +---------+  +---------+
-      ^            ^            ^
-      |            |            |
-      +------------+------------+
-                   |
-         (Instantiates objects)
-                   |
-      +-------------------------+
-      |    GameObjectFactory    |
-      +-------------------------+
-      | + create(type, x, y)    |
-      +-------------------------+
-                   |
-              (Called by)
-                   |
-             +-----------+
-             |   Main    |
-             +-----------+
+       |      GameObject       |  <---- (Abstract Class)
+       +-----------------------+
+       | # x: int              |
+       | # y: int              |
+       +-----------------------+
+       | + update(): void      |
+       +-----------------------+
+                   ^
+                   | (Inheritance)
+      +------------+------------+
+      |            |            |
++----------+  +---------+  +---------+
+|  Player  |  |  Enemy  |  |  Item   |
++----------+  +---------+  +---------+
+| +update()|  | +update()|  | +update()|
++----------+  +---------+  +---------+
+      ^            ^            ^
+      |            |            |
+      +------------+------------+
+                   |
+         (Instantiates objects)
+                   |
+      +-------------------------+
+      |    GameObjectFactory    |
+      +-------------------------+
+      | + create(type, x, y)    |
+      +-------------------------+
+                   |
+              (Called by)
+                   |
+             +-----------+
+             |   Main    |
+             +-----------+
 ```
-
-Harika, elindeki PATTERNS.md dosyası oldukça düzenli ve ASCII diyagramlarıyla detaylandırılmış. Faz 2 dökümantasyonunu bu yapıya birebir uydurarak eklemelisin.
-
-Aşağıdaki metni, dosyanın sonuna (Phase 1'in bittiği yerden itibaren) ekleyebilirsin. ASCII diyagramlarını senin mevcut stiline göre hazırladım:
-
-🛠 Phase 2: Structural Patterns
+🛠 Phase 2: Structural Patterns (Decorator & Adapter)
 🔍 Where used (Nerede Kullanıldı?)
-Decorator Pattern: GameObject nesnelerine (Player/Enemy) çalışma anında dinamik özellikler eklemek için GameObjectDecorator ve ShieldDecorator sınıfları sisteme dahil edildi.
+Decorator Pattern: GameObject nesnelerine (Player/Enemy) çalışma anında dinamik özellikler eklemek için GameObjectDecorator ve ShieldDecorator sınıfları kullanıldı.
 
-Adapter Pattern: Uyumsuz bir arayüze sahip olan LegacyLogger kütüphanesini, oyunun standart update() döngüsüne sokabilmek için LoggerAdapter sınıfı kullanıldı.
+Adapter Pattern: Uyumsuz bir arayüze sahip olan LegacyLogger kütüphanesini sistemin update() döngüsüne entegre etmek için LoggerAdapter kullanıldı.
 
 ❓ Why used (Neden Kullanıldı?)
-Sınıf Patlamasını (Class Explosion) Önlemek: Kalkan, Hız gibi her özellik kombinasyonu için ayrı alt sınıf (ShieldedPlayer, FastEnemy) açmak yerine, Decorator ile özellikleri üst üste eklemeyi sağladık.
+Sınıf Patlamasını (Class Explosion) Önlemek: Her özellik kombinasyonu için ayrı alt sınıf açmak yerine, Decorator ile özellikleri üst üste eklemeyi sağladık.
 
-Arayüz Uyumluluğu: Kaynak koduna dokunamadığımız dış kütüphaneleri (Adaptee), mevcut sistemin beklediği arayüze (Target) dönüştürerek polimorfizmi koruduk.
-
-Open/Closed Principle: Mevcut Player veya Enemy kodunda tek bir satır değiştirmeden sisteme yepyeni davranışlar (Loglama, Kalkan) ekledik.
+Arayüz Uyumluluğu: Kaynak koduna dokunamadığımız dış yapıları, mevcut sistemin beklediği arayüze dönüştürerek polimorfizmi koruduk.
 
 🏆 Benefit (Ne Kazandınız?)
-Runtime Flexibility: Nesnelerin özellikleri oyun devam ederken değiştirilebilir hale geldi.
+Runtime Flexibility: Nesnelerin özellikleri oyun devam ederken (çalışma anında) değiştirilebilir hale geldi.
 
 Modularity: Loglama ve Savunma (Kalkan) mantığı ana sınıflardan ayrıştırıldı (Single Responsibility).
 
-Integration: Uyumsuz yapılar sistemle tam uyumlu hale getirilerek kodun genel akışı bozulmadı.
-
 📊 UML Class Diagrams (Phase 2)
 🔵 Decorator Pattern Structure
-
 ```text
-      +-----------------------+
-      |      GameObject       | <----+
-      +-----------------------+      |
-      | + update(): void      |      |
-      +-----------------------+      |
-          ^              ^           | (Wraps / Decorates)
-          |              |           |
-    +----------+  +-------------------------+
-    |  Player  |  |   GameObjectDecorator   | <--- (Abstract)
-    +----------+  +-------------------------+
-    | +update()|  | - wrapped: GameObject   |
-    +----------+  +-------------------------+
-                  | + update(): void        |
-                  +-------------------------+
-                             ^
-                             | (Inheritance)
-                  +-------------------------+
-                  |     ShieldDecorator     |
-                  +-------------------------+
-                  | + update(): void        |
-                  +-------------------------+
++-----------------------+
+      |      GameObject       | <----+
+      +-----------------------+      |
+      | + update(): void      |      |
+      +-----------------------+      |
+          ^             ^            | (Wraps / Decorates)
+          |             |            |
+    +----------+  +-------------------------+
+    |  Player  |  |   GameObjectDecorator   | <--- (Abstract)
+    +----------+  +-------------------------+
+    | +update()|  | - wrapped: GameObject   |
+    +----------+  +-------------------------+
+                  | + update(): void        |
+                  +-------------------------+
+                              ^
+                              | (Inheritance)
+                  +-------------------------+
+                  |     ShieldDecorator     |
+                  +-------------------------+
+                  | + update(): void        |
+                  +-------------------------+
 ```
-
 🔵 Adapter Pattern Structure
 ```text
-      +-----------------------+          +-----------------------+
-      |      GameObject       |          |     LegacyLogger      |
-      +-----------------------+          +-----------------------+
-      | + update(): void      |          | + logMessage(): void  |
-      +-----------------------+          +-----------------------+
-                  ^                          ^
-                  | (Implements)             | (Called by)
-      +-----------------------+              |
-      |     LoggerAdapter     |--------------+
-      +-----------------------+
-      | - logger: LegacyLogger|
-      +-----------------------+
-      | + update(): void      |  <-- calls logger.logMessage()
-      +-----------------------+
-```
-
-⚖️ Adapter vs Facade Decision (Karar Notu)
-Bu fazda Adapter tercih edilmiştir çünkü hedefimiz karmaşık bir alt sistemi basitleştirmek (Facade) değil, tek bir uyumsuz arayüzü mevcut sistemimizin update() döngüsüne polimorfik olarak uydurmaktır.
->>>>>>> Stashed changes
++-----------------------+          +-----------------------+
+      |      GameObject       |          |     LegacyLogger      |
+      +-----------------------+          +-----------------------+
+      | + update(): void      |          | + logMessage(): void  |
+      +-----------------------+          +-----------------------+
+                  ^                          ^
+                  | (Implements)             | (Called by)
+      +-----------------------+              |
+      |     LoggerAdapter     |--------------+
+      +-----------------------+
+      | - logger: LegacyLogger|
+      +-----------------------+
+      | + update(): void      |  <-- calls logger.logMessage()
+      +-----------------------+
+``` 
