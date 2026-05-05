@@ -1,50 +1,55 @@
-🎮 Mini Game Engine - OOP Evolution
-# 🎮 Mini Game Engine - OOP Evolution
-
-## 📌 Seçilen Konu: C# (Mini Oyun Motoru)
-**Gerekçe:** Başlangıç kodundaki `if-else` karmaşıklığını gidermek ve oyun nesnelerini daha modüler bir yapıda yönetmek için bu konuyu seçtim. Factory Method ile nesne üretimini, Structural desenler ile de nesne yeteneklerini modernize etmeyi hedefledim.
+# Seçilen Konu: C (Mini Oyun Motoru)
+**Gerekçe:** Başlangıç kodundaki if-else karmaşıklığını gidermek ve oyun nesnelerini daha modüler bir yapıda yönetmek için bu konuyu seçtim. Factory Method ile nesne üretimini, Structural desenler ile de nesne yeteneklerini modernize etmeyi hedefledim.
 
 ---
 
-## 🚀 Project Overview
-This project demonstrates the evolution of a simple game engine using Object-Oriented Programming principles and design patterns. It traces the journey from a procedural approach (Phase 0) to a highly flexible, pattern-oriented architecture.
+## 📌 Project Overview
+This project demonstrates the evolution of a simple game engine using Object-Oriented Programming principles and design patterns. It traces the journey from a procedural approach to a highly flexible, pattern-oriented architecture.
 
 ---
 
 ## 🧱 Phase 0 (Initial Design)
-*   **Structure:** Basic `GameObject` structure.
-*   **Logic:** `if-else` based type handling for updates and creation.
-*   **Status:** No design patterns used.
-*   **Documentation:** Problems identified and documented in [PROBLEMS.md](./PROBLEMS.md).
+- Basic GameObject structure.
+- if-else based type handling for updates and creation.
+- No design patterns used.
+- Problems identified and documented in `PROBLEMS.md`.
 
 ---
 
-## 🚀 Phase 1 (Factory Method Pattern)
-
+## 🚀 Phase 1 (Creational Patterns)
 ### Improvements:
-*   **Refactoring:** Removed `if-else` logic from the `Main` class.
-*   **Centralization:** Introduced `GameObjectFactory` to handle object instantiation.
-*   **Pattern:** Applied **Factory Method Pattern** to improve maintainability and scalability.
-
-### Refactored Structure:
-*   **GameObject** (Abstract Class)
-*   **Concrete Classes:** `Player`, `Enemy`, `Item`
-*   **Factory:** `GameObjectFactory`
-*   **Client:** `Main`
-
-### 🎯 Design Pattern Benefits:
-*   **Cleaner Architecture:** `Main` class focuses only on the game loop.
-*   **Open/Closed Principle:** New object types can be added without modifying existing client code.
+- Introduced **Factory Method Pattern** to centralize object creation.
+- Removed conditional instantiation from the `Main` class.
+- Improved scalability: Adding a new game object type no longer requires changing the client code.
 
 ---
 
-## 📂 Dokümantasyon ve Süreç Rehberi
-Proje değerlendirmesi için aşağıdaki dosyalar incelenebilir:
+## 🛠️ Phase 2 (Structural Patterns)
+In this phase, two structural patterns were implemented to enhance the flexibility and integration capabilities of the engine.
 
-*   **[Mimari Analiz (PATTERNS.md)](./PATTERNS.md):** Uygulanan Factory Method örüntüsünün detayları ve **Önce/Sonra UML Sınıf Diyagramları**.
-*   **[Yapay Zeka Kullanım Logu (docs/ai-log/phase1.md)](./docs/ai-log/phase1.md):** AI ile yapılan review süreci ve alınan mimari kararların dökümü.
+### 1. Decorator Pattern
+- **Problem:** Adding new abilities (like a Shield) to specific objects at runtime without creating a "class explosion" of subclasses.
+- **Solution:** Implemented a `ShieldDecorator` that wraps any `GameObject` to add behavior dynamically.
+- **Benefit:** Abilities can be stacked or removed at runtime without modifying the base classes.
 
-### 🛠 GitHub İş Akışı
-*   `PROBLEMS.md` dosyasındaki eksiklikler için bir **GitHub Issue** oluşturulmuş.
-*   Geliştirmeler `phase-1` dalında tamamlanmış ve Issue, ilgili **Pull Request** ile kapatılmıştır.
+### 2. Adapter Pattern
+- **Problem:** Integrating an external, incompatible `LegacyLogger` class into our `GameObject` based update loop.
+- **Solution:** Created a `LoggerAdapter` that translates our `update()` calls into the legacy system's specific methods.
+- **Benefit:** Allows seamless integration of third-party or legacy libraries.
 
+---
+
+## 📂 Project Structure 
+- `src/` : All Java source files (Core, Factory, Decorators, Adapters).
+- `docs/ai-log/` : Step-by-step logs of AI collaboration for each phase.
+- `PROBLEMS.md` : Analysis of architectural issues faced.
+- `PATTERNS.md` : Technical details of the design patterns applied.
+- `README.md` : Project documentation and selection justification.
+
+---
+
+## 🎯 How to Run
+1. Open your terminal/command prompt in the project directory.
+2. Compile all source files:
+   ```bash
+   javac *.java
