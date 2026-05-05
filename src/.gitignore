@@ -1,0 +1,14 @@
+# Derleme çıktıları
+out/
+bin/
+
+# Java derlenmiş dosyalar
+*.class
+
+# IDE dosyaları (VS Code / IntelliJ)
+.vscode/
+.idea/
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
