@@ -1,11 +1,11 @@
-# Derleme çıktıları
+# Build / derleme çıktıları
 out/
 bin/
 
 # Java derlenmiş dosyalar
 *.class
 
-# IDE dosyaları (VS Code / IntelliJ)
+# IDE dosyaları
 .vscode/
 .idea/
 
