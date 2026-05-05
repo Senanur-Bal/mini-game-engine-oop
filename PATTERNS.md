@@ -1,10 +1,12 @@
-# DESIGN PATTERN OBSERVATIONS (FAZ 0)
+## Factory Method Pattern (Phase 1)
 
-## 1. Factory Pattern ihtiyacı
-Object creation işlemi if-else yapısı ile yönetiliyor. Bu yapı ileride genişletmeyi zorlaştırır.
+### Where used
+GameObject creation is handled by GameObjectFactory.
 
-## 2. Polymorphism ihtiyacı
-Farklı nesneler aynı davranışı farklı şekilde gerçekleştirecek şekilde tasarlanmamış.
+### Why used
+To remove if-else logic and centralize object creation.
 
-## 3. Open/Closed Principle problemi
-Yeni bir obje türü eklemek için mevcut kodun değiştirilmesi gerekiyor.
+### Benefit
+- Cleaner Main class
+- Easier to extend new object types
+- Better OOP structure

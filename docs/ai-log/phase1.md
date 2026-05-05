@@ -1,8 +1,8 @@
-# AI LOG - PHASE 1
+## AI Prompt
+"Review my Factory Method implementation"
 
-Factory Pattern implementation will be applied.
+## AI Summary
+AI suggested using Factory Pattern and removing conditional creation logic.
 
-Goal:
-- Remove if-else logic
-- Improve extensibility
-- Apply polymorphism
+## My Implementation
+I created GameObjectFactory and removed object creation from Main class.
