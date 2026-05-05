@@ -24,31 +24,13 @@ This project demonstrates the evolution of a simple game engine using Object-Ori
 
 ---
 
-## 🛠️ Phase 2 (Structural Patterns)
-In this phase, two structural patterns were implemented to enhance the flexibility and integration capabilities of the engine.
+## 📂 Dokümantasyon ve Süreç Rehberi
+Proje değerlendirmesi için aşağıdaki dosyalar incelenebilir:
 
-### 1. Decorator Pattern
-- **Problem:** Adding new abilities (like a Shield) to specific objects at runtime without creating a "class explosion" of subclasses.
-- **Solution:** Implemented a `ShieldDecorator` that wraps any `GameObject` to add behavior dynamically.
-- **Benefit:** Abilities can be stacked or removed at runtime without modifying the base classes.
+*   **[Mimari Analiz (PATTERNS.md)](./PATTERNS.md):** Uygulanan Factory Method örüntüsünün detayları ve **Önce/Sonra UML Sınıf Diyagramları**.
+*   **[Sorun Tespiti (PROBLEMS.md)](./PROBLEMS.md):** Faz 0'da tespit edilen ve bu fazda çözülen tasarımsal problemler.
+*   **[Yapay Zeka Kullanım Logu (docs/ai-log/phase1.md)](./docs/ai-log/phase1.md):** AI ile yapılan review süreci ve alınan mimari kararların dökümü.
 
-### 2. Adapter Pattern
-- **Problem:** Integrating an external, incompatible `LegacyLogger` class into our `GameObject` based update loop.
-- **Solution:** Created a `LoggerAdapter` that translates our `update()` calls into the legacy system's specific methods.
-- **Benefit:** Allows seamless integration of third-party or legacy libraries.
-
----
-
-## 📂 Project Structure 
-- `src/` : All Java source files (Core, Factory, Decorators, Adapters).
-- `docs/ai-log/` : Step-by-step logs of AI collaboration for each phase.
-- `PROBLEMS.md` : Analysis of architectural issues faced.
-- `PATTERNS.md` : Technical details of the design patterns applied.
-- `README.md` : Project documentation and selection justification.
-
----
-
-## 🎯 How to Run
-1. Place all `.java` files in the same directory.
-2. Compile: `javac *.java`
-3. Run: `java Main`
+### 🛠 GitHub İş Akışı
+- `PROBLEMS.md` dosyasındaki eksiklikler için bir **GitHub Issue** oluşturulmuş.
+- Geliştirmeler `phase-1` dalında tamamlanmış ve Issue, ilgili **Pull Request** ile kapatılmıştır.
