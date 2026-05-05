@@ -1,26 +1,28 @@
-🚀 Phase 1: Factory Method Pattern
-🔍 Where used (Nerede Kullanıldı?)
-GameObject üretimi, Main sınıfı içerisinden tamamen temizlendi ve bu sorumluluk GameObjectFactory sınıfına devredildi. İstemci (Main), artık somut sınıflar (Player, Enemy, Item) yerine sadece fabrika arayüzü ile etkileşime geçiyor.
+# 🏗 Design Patterns Documentation
 
-❓ Why used (Neden Kullanıldı?)
-Tight Coupling'i (Sıkı Bağlılık) Önlemek: Main sınıfının tüm alt sınıfları tanıması bağımlılığı artırıyordu. Fabrika kullanarak bu bağları kopardık.
+## 🚀 Phase 1: Factory Method Pattern
 
-Karmaşık Mantığı Soyutlamak: Nesne oluşturma sırasındaki switch-case yapısını tek bir merkezde toplayarak kod tekrarını önledik.
+### 🔍 Where used (Nerede Kullanıldı?)
+`GameObject` üretimi, `Main` sınıfı içerisinden tamamen temizlendi ve bu sorumluluk `GameObjectFactory` sınıfına devredildi. İstemci (`Main`), artık somut sınıflar (`Player`, `Enemy`, `Item`) yerine sadece fabrika arayüzü ile etkileşime geçiyor.
 
-Open/Closed Principle: Sisteme yeni bir nesne türü (örn: NPC) eklendiğinde mevcut Main koduna dokunmadan sadece fabrikayı genişletmeyi mümkün kıldık.
+### ❓ Why used (Neden Kullanıldı?)
+*   **Tight Coupling'i (Sıkı Bağlılık) Önlemek:** `Main` sınıfının tüm alt sınıfları tanıması bağımlılığı artırıyordu. Fabrika kullanarak bu bağları kopardık.
+*   **Karmaşık Mantığı Soyutlamak:** Nesne oluşturma sırasındaki `switch-case` yapısını tek bir merkezde toplayarak kod tekrarını önledik.
+*   **Open/Closed Principle:** Sisteme yeni bir nesne türü (örn: `NPC`) eklendiğinde mevcut `Main` koduna dokunmadan sadece fabrikayı genişletmeyi mümkün kıldık.
 
-🏆 Benefit (Ne Kazandınız?)
-Clean Code: Main sınıfı sadece oyunun akışına odaklandı, nesne yaratma yükünden kurtuldu.
+### 🏆 Benefit (Ne Kazandınız?)
+*   **Clean Code:** `Main` sınıfı sadece oyunun akışına odaklandı, nesne yaratma yükünden kurtuldu.
+*   **Maintainability:** Bir nesnenin oluşturulma şekli değişirse (örn: yeni bir constructor parametresi gelirse), sadece `GameObjectFactory` sınıfını güncellemek yeterli olacak.
+*   **Polimorfizm:** Tüm nesneler `GameObject` tipiyle yönetildiği için kod daha esnek ve tip güvenli hale geldi.
 
-Maintainability: Bir nesnenin oluşturulma şekli değişirse (örn: yeni bir constructor parametresi gelirse), sadece GameObjectFactory sınıfını güncellemek yeterli olacak.
+---
 
-Polimorfizm: Tüm nesneler GameObject tipiyle yönetildiği için kod daha esnek ve tip güvenli hale geldi.
+## 📊 UML Class Diagrams
 
-📊 UML Class Diagrams
-🔴 Phase 0: Before (Tight Coupling - Hatalı Tasarım)
-Bu aşamada tasarım sorunluydu; Main sınıfı her somut sınıfa doğrudan bağlıydı ve kodun genişletilmesi zordu.
+### 🔴 Phase 0: Before (Tight Coupling - Hatalı Tasarım)
+Bu aşamada tasarım sorunluydu; `Main` sınıfı her somut sınıfa doğrudan bağlıydı ve kodun genişletilmesi zordu.
 
-Plaintext
+```text
        +-----------------------+
        |         Main          |
        +-----------------------+
@@ -32,11 +34,13 @@ Plaintext
     +--------+   +-------+   +------+
     | Player |   | Enemy |   | Item |
     +--------+   +-------+   +------+
+```
+
 🟢 Phase 1: After (Factory Method - İyileştirilmiş Tasarım)
 Fabrika katmanı sayesinde bağımlılıklar soyutlandı. Main artık sadece GameObject ve GameObjectFactory sınıflarını tanıyor.
 
-Plaintext
-       +-----------------------+
+```text
++-----------------------+
        |      GameObject       |  <---- (Abstract Class)
        +-----------------------+
        | # x: int              |
@@ -53,21 +57,21 @@ Plaintext
 +----------+  +---------+  +---------+
 | +update()|  | +update()|  | +update()|
 +----------+  +---------+  +---------+
-
-          ^            ^            ^
-          |            |            |
-          +------------+------------+
-                       |
-             (Instantiates objects)
-                       |
-          +-------------------------+
-          |    GameObjectFactory    |
-          +-------------------------+
-          | + create(type, x, y)    |
-          +-------------------------+
-                       |
-                (Called by)
-                       |
-                 +-----------+
-                 |   Main    |
-                 +-----------+
+      ^            ^            ^
+      |            |            |
+      +------------+------------+
+                   |
+         (Instantiates objects)
+                   |
+      +-------------------------+
+      |    GameObjectFactory    |
+      +-------------------------+
+      | + create(type, x, y)    |
+      +-------------------------+
+                   |
+              (Called by)
+                   |
+             +-----------+
+             |   Main    |
+             +-----------+
+```
