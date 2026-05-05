@@ -70,3 +70,61 @@
              |   Main    |
              +-----------+
 ```
+🛠 Phase 2: Structural Patterns (Decorator & Adapter)
+🔍 Where used (Nerede Kullanıldı?)
+Decorator Pattern: GameObject nesnelerine (Player/Enemy) çalışma anında dinamik özellikler eklemek için GameObjectDecorator ve ShieldDecorator sınıfları kullanıldı.
+
+Adapter Pattern: Uyumsuz bir arayüze sahip olan LegacyLogger kütüphanesini sistemin update() döngüsüne entegre etmek için LoggerAdapter kullanıldı.
+
+❓ Why used (Neden Kullanıldı?)
+Sınıf Patlamasını (Class Explosion) Önlemek: Her özellik kombinasyonu için ayrı alt sınıf açmak yerine, Decorator ile özellikleri üst üste eklemeyi sağladık.
+
+Arayüz Uyumluluğu: Kaynak koduna dokunamadığımız dış yapıları, mevcut sistemin beklediği arayüze dönüştürerek polimorfizmi koruduk.
+
+🏆 Benefit (Ne Kazandınız?)
+Runtime Flexibility: Nesnelerin özellikleri oyun devam ederken (çalışma anında) değiştirilebilir hale geldi.
+
+Modularity: Loglama ve Savunma (Kalkan) mantığı ana sınıflardan ayrıştırıldı (Single Responsibility).
+
+📊 UML Class Diagrams (Phase 2)
+🔵 Decorator Pattern Structure
+```text
++-----------------------+
+      |      GameObject       | <----+
+      +-----------------------+      |
+      | + update(): void      |      |
+      +-----------------------+      |
+          ^             ^            | (Wraps / Decorates)
+          |             |            |
+    +----------+  +-------------------------+
+    |  Player  |  |   GameObjectDecorator   | <--- (Abstract)
+    +----------+  +-------------------------+
+    | +update()|  | - wrapped: GameObject   |
+    +----------+  +-------------------------+
+                  | + update(): void        |
+                  +-------------------------+
+                              ^
+                              | (Inheritance)
+                  +-------------------------+
+                  |     ShieldDecorator     |
+                  +-------------------------+
+                  | + update(): void        |
+                  +-------------------------+
+```
+🔵 Adapter Pattern Structure
+```text
++-----------------------+          +-----------------------+
+      |      GameObject       |          |     LegacyLogger      |
+      +-----------------------+          +-----------------------+
+      | + update(): void      |          | + logMessage(): void  |
+      +-----------------------+          +-----------------------+
+                  ^                          ^
+                  | (Implements)             | (Called by)
+      +-----------------------+              |
+      |     LoggerAdapter     |--------------+
+      +-----------------------+
+      | - logger: LegacyLogger|
+      +-----------------------+
+      | + update(): void      |  <-- calls logger.logMessage()
+      +-----------------------+
+```
