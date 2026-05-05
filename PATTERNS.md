@@ -1,10 +1,12 @@
-# DESIGN PATTERNS NEEDED
+## Factory Method Pattern (Phase 1)
 
-## 1. Factory Pattern
-Object creation if-else yerine merkezi bir yapı ile yapılmalıdır.
+### Where used
+GameObject creation is handled by GameObjectFactory.
 
-## 2. Polymorphism
-Type kontrolü yerine override kullanılmalıdır.
+### Why used
+To remove if-else logic and centralize object creation.
 
-## 3. Open/Closed Principle
-Kod genişletilebilir olmalıdır, mevcut kod değişmemelidir.
+### Benefit
+- Cleaner Main class
+- Easier to extend new object types
+- Better OOP structure
